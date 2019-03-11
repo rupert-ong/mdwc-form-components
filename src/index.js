@@ -104,7 +104,7 @@ document.addEventListener(
     if (!e.target.form.classList.contains('_validate')) return;
 
     var error = hasError(e.target);
-    console.log(error);
+    if (error) showError(e.target, error);
   },
   true
 );
@@ -164,6 +164,16 @@ function hasError(field) {
   }
 
   return 'The value you entered for this field is invalid.';
+}
+
+function showError(field, error) {
+  var component = field.closest('.mdwc-text-field'),
+    helperLineText = component.nextElementSibling;
+
+  console.log(component, helperLineText, error);
+
+  component.classList.add('mdwc-text-field--error');
+  helperLineText.innerHTML = error;
 }
 
 // Firefox bug on input[number] not focusing on numeric stepper click
