@@ -17,6 +17,12 @@ button {
   font-family: 'Roboto', sans-serif;
 }
 
+input:invalid,
+select:invalid,
+textarea:invalid {
+  box-shadow: none;
+}
+
 .mdwc-row {
   display: flex;
   flex-wrap: wrap;
@@ -68,6 +74,10 @@ button {
 
 .mdwc-text-field--full-width .mdwc-text-field__form-control {
   width: 100%;
+}
+
+.mdwc-text-field__form-control[type='date'] {
+  align-self: center;
 }
 
 .mdwc-text-field__form-control[disabled] {
