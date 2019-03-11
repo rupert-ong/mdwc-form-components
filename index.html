@@ -21,16 +21,22 @@
             </div>
           </div>
         </div>
+        <div class="mdwc-text-field-helper-line">
+          <span class="mdwc-text-field-helper-line__text"></span>
+        </div>
       </div>
 			
       <div class="mdwc-row__col">
 				<div class="mdwc-text-field mdwc-text-field--full-width mdwc-text-field--outlined">
-					<input id="myAge" type="number" class="mdwc-text-field__form-control" step="0.1" required/>
+					<input id="myAge" type="number" class="mdwc-text-field__form-control" step="0.1" min="1" max="10" required/>
           <div class="mdwc-notched-outline">
             <div class="mdwc-notched-outline__notch">
               <label class="mdwc-floating-label" for="myAge">Age</label>
             </div>
           </div>
+        </div>
+        <div class="mdwc-text-field-helper-line">
+          <span class="mdwc-text-field-helper-line__text"></span>
         </div>
       </div>
     </div>
@@ -38,12 +44,15 @@
     <div class="mdwc-row">
       <div class="mdwc-row__col">
 				<div class="mdwc-text-field mdwc-text-field--full-width mdwc-text-field--outlined">
-					<input id="myEmail" type="email" class="mdwc-text-field__form-control" required pattern="^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*(\.\w{2,})+$"/>
+					<input id="myEmail" type="email" class="mdwc-text-field__form-control" required title="The email is missing a TLD." pattern="^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*(\.\w{2,})+$"/>
           <div class="mdwc-notched-outline">
             <div class="mdwc-notched-outline__notch">
               <label class="mdwc-floating-label" for="myEmail">Email</label>
             </div>
           </div>
+        </div>
+        <div class="mdwc-text-field-helper-line">
+          <span class="mdwc-text-field-helper-line__text"></span>
         </div>
       </div>
 
@@ -55,6 +64,9 @@
               <label class="mdwc-floating-label" for="myPassword">Password</label>
             </div>
           </div>
+        </div>
+        <div class="mdwc-text-field-helper-line">
+          <span class="mdwc-text-field-helper-line__text"></span>
         </div>
       </div>
     </div>
@@ -96,6 +108,9 @@
               <label class="mdwc-floating-label" for="myText2">Super Long Description</label>
             </div>
           </div>
+        </div>
+        <div class="mdwc-text-field-helper-line">
+          <span class="mdwc-text-field-helper-line__text"></span>
         </div>
       </div>
     </div>
