@@ -22,6 +22,12 @@ if (window.NodeList && !NodeList.prototype.forEach) {
   NodeList.prototype.forEach = Array.prototype.forEach;
 }
 
+/* Disable native browser validatin */
+document.querySelectorAll('._validate').forEach(function(elem){
+  elem.setAttribute('novalidate', true);
+})
+
+
 window.onload = function() {
   initTextFields();
 };

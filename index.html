@@ -10,7 +10,7 @@
 </head>
 
 <body>
-	<form autocomplete="off">
+	<form class="_validate" autocomplete="off">
 		<div class="mdwc-row">
 			<div class="mdwc-row__col">
 				<div class="mdwc-text-field mdwc-text-field--full-width mdwc-text-field--outlined">
@@ -49,7 +49,7 @@
 
       <div class="mdwc-row__col">
         <div class="mdwc-text-field mdwc-text-field--full-width mdwc-text-field--outlined">
-					<input id="myPassword" type="password" class="mdwc-text-field__form-control" minlength="5" maxlength="12" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" required/>
+					<input id="myPassword" type="password" class="mdwc-text-field__form-control" minlength="5" maxlength="12" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" required minlength="5" maxlength="12"/>
           <div class="mdwc-notched-outline">
             <div class="mdwc-notched-outline__notch">
               <label class="mdwc-floating-label" for="myPassword">Password</label>
@@ -59,6 +59,7 @@
       </div>
     </div>
 
+<!--
     <div class="mdwc-row">
       <div class="mdwc-row__col">
         <div class="mdwc-text-field mdwc-text-field--fullwidth mdwc-text-field--outlined">
@@ -78,6 +79,7 @@
         </div>
       </div>
     </div>
+    -->
 
     <div class="mdwc-row">
       <div class="mdwc-row__col">
