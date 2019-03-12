@@ -109,7 +109,8 @@ function hasError(field) {
   if (validity.valid) return;
 
   if (validity.valueMissing) {
-    if (field.type === 'radio' || field.type === 'checkbox') return 'Please select a value';
+    if (field.type === 'radio' || field.type === 'checkbox' || field.nodeName.toLowerCase() === 'select')
+      return 'Please select a value';
     return 'Please fill out this field';
   }
   if (validity.typeMismatch) {
