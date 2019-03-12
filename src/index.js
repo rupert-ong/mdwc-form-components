@@ -138,36 +138,36 @@ function hasError(field) {
     return (
       'Please lengthen this text to ' +
       field.getAttribute('minLength') +
-      ' characters or more.'
+      ' characters or more'
     );
 
   if (validity.tooLong)
     return (
       'Please shorten this text to less than ' +
       field.getAttribute('maxLength') +
-      ' characters or less.'
+      ' characters or less'
     );
 
   if (validity.badInput) return 'Please enter a number';
 
-  if (validity.stepMismatch) return 'Please select a valid value.';
+  if (validity.stepMismatch) return 'Please select a valid value';
 
   if (validity.rangeOverflow)
     return (
-      'Please select a value smaller than or equal to ' + field.getAttribute('max') + '.'
+      'Please select a value smaller than or equal to ' + field.getAttribute('max')
     );
 
   if (validity.rangeUnderflow)
     return (
-      'Please select a value larger than or equal to ' + field.getAttribute('min') + '.'
+      'Please select a value larger than or equal to ' + field.getAttribute('min')
     );
 
   if (validity.patternMismatch) {
     if (field.hasAttribute('title')) return field.getAttribute('title');
-    return 'Please match the requested format.';
+    return 'Please match the requested format';
   }
 
-  return 'The value you entered for this field is invalid.';
+  return 'The value you entered for this field is invalid';
 }
 
 function hideError(field) {
