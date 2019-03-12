@@ -280,6 +280,7 @@ select.mdwc-text-field__form-control[disabled] {
   min-height: 40px;
   padding: 10px 24px 10px 28px;
   position: relative;
+  vertical-align: bottom;
 }
 
 .mdwc-radio label:empty {
