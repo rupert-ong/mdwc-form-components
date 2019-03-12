@@ -197,6 +197,30 @@ document.addEventListener('change', function(e) {
   if (e.target.type === 'number') e.target.focus();
 });
 
+// Validate on submit
+document.addEventListener('submit', function(e) {
+  if (!e.target.classList.contains('_validate')) return;
+
+  var fields = e.target.elements,
+    i = 0,
+    error,
+    fieldWithError;
+
+  for(; i < fields.length; i++) {
+    var field = fields[i];
+    error = hasError(field);
+    if (error) {
+      showError(field, error);
+      fieldWithError = !fieldWithError ? field : fieldWithError;
+    }
+
+    if (fieldWithError) {
+      e.preventDefault();
+      fieldWithError.focus();
+    }
+  }
+});
+
 /* Toggle Input states */
 document.querySelector('._toggleDisable').addEventListener(
   'click',
