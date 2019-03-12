@@ -154,12 +154,12 @@ function hasError(field) {
 
   if (validity.rangeOverflow)
     return (
-      'Please select a value smaller than ' + field.getAttribute('max') + '.'
+      'Please select a value smaller than or equal to ' + field.getAttribute('max') + '.'
     );
 
   if (validity.rangeUnderflow)
     return (
-      'Please select a value larger than ' + field.getAttribute('min') + '.'
+      'Please select a value larger than or equal to ' + field.getAttribute('min') + '.'
     );
 
   if (validity.patternMismatch) {
