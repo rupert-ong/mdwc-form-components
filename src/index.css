@@ -267,8 +267,14 @@ select.mdwc-text-field__form-control[disabled] {
   display: none;
 }
 
+.mdwc-radio:hover label:before,
+.mdwc-radio:focus label:before {
+  box-shadow: 0 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
 .mdwc-radio input[type='radio']:checked + label:before {
   border-color: #6200ee;
+  animation: ripple 0.25s linear forwards;
 }
 
 .mdwc-radio input[type='radio']:checked + label:after {
@@ -293,7 +299,7 @@ select.mdwc-text-field__form-control[disabled] {
   content: '';
   border-radius: 50%;
   transition: all 0.2s ease;
-  transition-property: transform, color;
+  transition-property: transform, color, box-shadow;
 }
 
 .mdwc-radio label:before {
@@ -320,4 +326,16 @@ select.mdwc-text-field__form-control[disabled] {
 
 .mdwc-form-field--disabled .mdwc-radio label:after {
   background-color: rgba(0, 0, 0, 0.37);
+}
+
+@keyframes ripple {
+  0% {
+    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0);
+  }
+  50% {
+    box-shadow: 0px 0px 0px 8px rgba(0, 0, 0, 0.08);
+  }
+  100% {
+    box-shadow: 0px 0px 0px 8px rgba(0, 0, 0, 0);
+  }
 }
