@@ -171,24 +171,46 @@ function hasError(field) {
 }
 
 function hideError(field) {
-  var component = field.closest('.mdwc-text-field'),
+  if (
+    field.disabled ||
+    field.type === 'file' ||
+    field.type === 'reset' ||
+    field.type === 'submit'
+  )
+    return;
+
+  var isInlineField = field.type === 'radio' || field.type === 'checkbox',
+    component = isInlineField
+      ? field.closest('.mdwc-form-field')
+      : field.closest('.mdwc-text-field'),
     helperLineText = component.nextElementSibling.querySelector(
-      '.mdwc-text-field-helper-line__text'
+      isInlineField
+        ? '.mdwc-form-field-helper-line__text'
+        : '.mdwc-text-field-helper-line__text'
     );
 
-  component.classList.remove('mdwc-text-field--error');
+  component.classList.remove(
+    isInlineField ? 'mdwc-form-field-error' : 'mdwc-text-field--error'
+  );
   helperLineText.innerHTML = helperLineText.dataset.helper
     ? helperLineText.dataset.helper
     : '';
 }
 
 function showError(field, error) {
-  var component = field.closest('.mdwc-text-field'),
+  var isInlineField = field.type === 'radio' || field.type === 'checkbox',
+    component = isInlineField
+      ? field.closest('.mdwc-form-field')
+      : field.closest('.mdwc-text-field'),
     helperLineText = component.nextElementSibling.querySelector(
-      '.mdwc-text-field-helper-line__text'
+      isInlineField
+        ? '.mdwc-form-field-helper-line__text'
+        : '.mdwc-text-field-helper-line__text'
     );
 
-  component.classList.add('mdwc-text-field--error');
+  component.classList.add(
+    isInlineField ? 'mdwc-form-field--error' : 'mdwc-text-field--error'
+  );
   helperLineText.innerHTML = error;
 }
 
@@ -206,7 +228,7 @@ document.addEventListener('submit', function(e) {
     error,
     fieldWithError;
 
-  for(; i < fields.length; i++) {
+  for (; i < fields.length; i++) {
     var field = fields[i];
     error = hasError(field);
     if (error) {
