@@ -104,7 +104,11 @@ document.addEventListener(
     if (!e.target.form.classList.contains('_validate')) return;
 
     var error = hasError(e.target);
-    if (error) showError(e.target, error);
+    if (error) {
+      showError(e.target, error);
+      return;
+    }
+    hideError(e.target);
   },
   true
 );
@@ -134,7 +138,7 @@ function hasError(field) {
     return (
       'Please lengthen this text to ' +
       field.getAttribute('minLength') +
-      'characters or more.'
+      ' characters or more.'
     );
 
   if (validity.tooLong)
@@ -166,11 +170,23 @@ function hasError(field) {
   return 'The value you entered for this field is invalid.';
 }
 
+function hideError(field) {
+  var component = field.closest('.mdwc-text-field'),
+    helperLineText = component.nextElementSibling.querySelector(
+      '.mdwc-text-field-helper-line__text'
+    );
+
+  component.classList.remove('mdwc-text-field--error');
+  helperLineText.innerHTML = helperLineText.dataset.helper
+    ? helperLineText.dataset.helper
+    : '';
+}
+
 function showError(field, error) {
   var component = field.closest('.mdwc-text-field'),
-    helperLineText = component.nextElementSibling;
-
-  console.log(component, helperLineText, error);
+    helperLineText = component.nextElementSibling.querySelector(
+      '.mdwc-text-field-helper-line__text'
+    );
 
   component.classList.add('mdwc-text-field--error');
   helperLineText.innerHTML = error;
