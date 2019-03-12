@@ -1,8 +1,6 @@
 /* IE9+ Closest + Matches Polyfill */
 if (!Element.prototype.matches) {
-  Element.prototype.matches =
-    Element.prototype.msMatchesSelector ||
-    Element.prototype.webkitMatchesSelector;
+  Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
 }
 
 if (!Element.prototype.closest) {
@@ -23,7 +21,7 @@ if (window.NodeList && !NodeList.prototype.forEach) {
 }
 
 /* Disable native browser validatin */
-document.querySelectorAll('._validate').forEach(function(elem) {
+document.querySelectorAll('._mdwc-validate').forEach(function(elem) {
   elem.setAttribute('novalidate', true);
 });
 
@@ -32,17 +30,13 @@ window.onload = function() {
 };
 
 function initTextFields() {
-  document
-    .querySelectorAll(
-      '.mdwc-text-field--outlined:not(.mdwc-text-field--disabled)'
-    )
-    .forEach(function(elem) {
-      var input = elem.querySelector('.mdwc-text-field__form-control');
-      if (String(input.value).trim().length > 0) {
-        input.focus();
-        input.blur();
-      }
-    });
+  document.querySelectorAll('.mdwc-text-field--outlined:not(.mdwc-text-field--disabled)').forEach(function(elem) {
+    var input = elem.querySelector('.mdwc-text-field__form-control');
+    if (String(input.value).trim().length > 0) {
+      input.focus();
+      input.blur();
+    }
+  });
 }
 
 /* Focus and blur methods for Floating Labels */
@@ -50,11 +44,7 @@ document.addEventListener(
   'focus',
   function(e) {
     if (e.target instanceof Element === false) return;
-    if (
-      e.target.closest(
-        '.mdwc-text-field--outlined:not(.mdwc-text-field--disabled)'
-      )
-    ) {
+    if (e.target.closest('.mdwc-text-field--outlined:not(.mdwc-text-field--disabled)')) {
       var container = e.target.closest('.mdwc-text-field--outlined'),
         notch = container.querySelector('.mdwc-notched-outline__notch'),
         label = notch.querySelector('.mdwc-floating-label');
@@ -86,10 +76,7 @@ document.addEventListener(
     // Input Styles
     if (e.target instanceof Element === false) return;
 
-    if (
-      e.target.matches('.mdwc-text-field__form-control') &&
-      e.target.closest('.mdwc-text-field--outlined')
-    ) {
+    if (e.target.matches('.mdwc-text-field__form-control') && e.target.closest('.mdwc-text-field--outlined')) {
       var container = e.target.closest('.mdwc-text-field--outlined'),
         notch = container.querySelector('.mdwc-notched-outline__notch');
 
@@ -101,7 +88,7 @@ document.addEventListener(
     }
 
     // Form Validity
-    if (!e.target.form.classList.contains('_validate')) return;
+    if (e.target.form && !e.target.form.classList.contains('_mdwc-validate')) return;
 
     var error = hasError(e.target);
     if (error) {
@@ -115,52 +102,34 @@ document.addEventListener(
 
 // Validity function
 function hasError(field) {
-  if (
-    field.disabled ||
-    field.type === 'file' ||
-    field.type === 'reset' ||
-    field.type === 'submit'
-  )
-    return;
+  if (field.disabled || field.type === 'file' || field.type === 'reset' || field.type === 'submit') return;
 
   var validity = field.validity;
 
   if (validity.valid) return;
 
-  if (validity.valueMissing) return 'Please fill out this field';
-
+  if (validity.valueMissing) {
+    if (field.type === 'radio' || field.type === 'checkbox') return 'Please select a value';
+    return 'Please fill out this field';
+  }
   if (validity.typeMismatch) {
     if (field.type === 'email') return 'Please enter an email address';
     if (field.type === 'url') return 'Please enter a URL';
   }
 
   if (validity.tooShort)
-    return (
-      'Please lengthen this text to ' +
-      field.getAttribute('minLength') +
-      ' characters or more'
-    );
+    return 'Please lengthen this text to ' + field.getAttribute('minLength') + ' characters or more';
 
   if (validity.tooLong)
-    return (
-      'Please shorten this text to less than ' +
-      field.getAttribute('maxLength') +
-      ' characters or less'
-    );
+    return 'Please shorten this text to less than ' + field.getAttribute('maxLength') + ' characters or less';
 
   if (validity.badInput) return 'Please enter a number';
 
   if (validity.stepMismatch) return 'Please select a valid value';
 
-  if (validity.rangeOverflow)
-    return (
-      'Please select a value smaller than or equal to ' + field.getAttribute('max')
-    );
+  if (validity.rangeOverflow) return 'Please enter a value smaller than or equal to ' + field.getAttribute('max');
 
-  if (validity.rangeUnderflow)
-    return (
-      'Please select a value larger than or equal to ' + field.getAttribute('min')
-    );
+  if (validity.rangeUnderflow) return 'Please enter a value larger than or equal to ' + field.getAttribute('min');
 
   if (validity.patternMismatch) {
     if (field.hasAttribute('title')) return field.getAttribute('title');
@@ -171,46 +140,22 @@ function hasError(field) {
 }
 
 function hideError(field) {
-  if (
-    field.disabled ||
-    field.type === 'file' ||
-    field.type === 'reset' ||
-    field.type === 'submit'
-  )
-    return;
+  if (field.disabled || field.type === 'file' || field.type === 'reset' || field.type === 'submit') return;
 
   var isInlineField = field.type === 'radio' || field.type === 'checkbox',
-    component = isInlineField
-      ? field.closest('.mdwc-form-field')
-      : field.closest('.mdwc-text-field'),
-    helperLineText = component.nextElementSibling.querySelector(
-      isInlineField
-        ? '.mdwc-form-field-helper-line__text'
-        : '.mdwc-text-field-helper-line__text'
-    );
+    component = isInlineField ? field.closest('.mdwc-form-field') : field.closest('.mdwc-text-field'),
+    helperLineText = component.nextElementSibling;
 
-  component.classList.remove(
-    isInlineField ? 'mdwc-form-field-error' : 'mdwc-text-field--error'
-  );
-  helperLineText.innerHTML = helperLineText.dataset.helper
-    ? helperLineText.dataset.helper
-    : '';
+  component.classList.remove(isInlineField ? 'mdwc-form-field-error' : 'mdwc-text-field--error');
+  helperLineText.innerHTML = helperLineText.dataset.helper ? helperLineText.dataset.helper : '';
 }
 
 function showError(field, error) {
   var isInlineField = field.type === 'radio' || field.type === 'checkbox',
-    component = isInlineField
-      ? field.closest('.mdwc-form-field')
-      : field.closest('.mdwc-text-field'),
-    helperLineText = component.nextElementSibling.querySelector(
-      isInlineField
-        ? '.mdwc-form-field-helper-line__text'
-        : '.mdwc-text-field-helper-line__text'
-    );
+    component = isInlineField ? field.closest('.mdwc-form-field') : field.closest('.mdwc-text-field'),
+    helperLineText = component.nextElementSibling;
 
-  component.classList.add(
-    isInlineField ? 'mdwc-form-field--error' : 'mdwc-text-field--error'
-  );
+  component.classList.add(isInlineField ? 'mdwc-form-field--error' : 'mdwc-text-field--error');
   helperLineText.innerHTML = error;
 }
 
@@ -221,7 +166,7 @@ document.addEventListener('change', function(e) {
 
 // Validate on submit
 document.addEventListener('submit', function(e) {
-  if (!e.target.classList.contains('_validate')) return;
+  if (!e.target.classList.contains('_mdwc-validate')) return;
 
   var fields = e.target.elements,
     i = 0,
@@ -247,13 +192,21 @@ document.addEventListener('submit', function(e) {
 document.querySelector('._toggleDisable').addEventListener(
   'click',
   function(e) {
-    var inputContainers = document.querySelectorAll('.mdwc-text-field'),
+    var inputContainers = document.querySelectorAll('.mdwc-text-field, .mdwc-form-field'),
       i = 0;
     for (; i < inputContainers.length; i++) {
-      var elem = inputContainers[i],
-        input = elem.querySelector('.mdwc-text-field__form-control');
-      elem.classList.toggle('mdwc-text-field--disabled');
-      input.disabled = !input.disabled;
+      var elem = inputContainers[i];
+
+      if (elem.classList.contains('mdwc-text-field')) {
+        var input = elem.querySelector('.mdwc-text-field__form-control');
+        elem.classList.toggle('mdwc-text-field--disabled');
+        input.disabled = !input.disabled;
+      } else {
+        elem.querySelectorAll('input').forEach(function(input) {
+          input.disabled = !input.disabled;
+        });
+        elem.classList.toggle('mdwc-form-field--disabled');
+      }
     }
   },
   false
@@ -262,7 +215,7 @@ document.querySelector('._toggleDisable').addEventListener(
 document.querySelector('._toggleError').addEventListener(
   'click',
   function(e) {
-    var inputContainers = document.querySelectorAll('.mdwc-text-field'),
+    var inputContainers = document.querySelectorAll('.mdwc-text-field', '.mdwc-form-field'),
       i = 0;
     for (; i < inputContainers.length; i++) {
       var elem = inputContainers[i];
